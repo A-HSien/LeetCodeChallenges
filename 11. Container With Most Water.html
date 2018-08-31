@@ -1,0 +1,22 @@
+﻿<script src="assert.js"></script>
+<script>
+
+    var maxArea = function (height) {
+        let left = 0;
+        let right = height.length - 1;
+        let ans = 0;
+        if (right < 1) return ans;
+
+        while (right - left > 0) {
+            const h = Math.min(height[right], height[left]);
+            ans = Math.max(ans, (right - left) * h);
+            if (height[right] === h) right--;
+            else left++;
+        }
+        return ans;
+    };
+
+    assert(49, maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+    assert(17, maxArea([2, 3, 4, 5, 18, 17, 6]));
+    
+</script>

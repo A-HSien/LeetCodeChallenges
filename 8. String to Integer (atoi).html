@@ -1,0 +1,72 @@
+<script src="assert.js"></script>
+<script>
+
+    /**
+     * @param {string} str
+     * @return {number}
+     */
+    var myAtoi = function (str) {
+
+        const half = Math.pow(2, 30);
+        const max = half + (half - 1);
+        const ones = max % 10;
+        const maxDivTen = Math.floor(max / 10);
+
+        const map = {
+            '0': 0,
+            '1': 1,
+            '2': 2,
+            '3': 3,
+            '4': 4,
+            '5': 5,
+            '6': 6,
+            '7': 7,
+            '8': 8,
+            '9': 9,
+        };
+        let ans = 0;
+        let isNagtive = false;
+        let startGetNumber = false;
+        let overFlowed = false;
+
+        const len = str.length;
+        let i = 0;
+        while (i < len && !overFlowed) {
+            const char = str[i];
+            if (startGetNumber === false && char === ' ') {
+
+            }
+            else if (startGetNumber === false && char === '-') {
+                isNagtive = true;
+                startGetNumber = true;
+            }
+            else if (startGetNumber === false && char === '+') {
+                isNagtive = false;
+                startGetNumber = true;
+            }
+            else if (map[char] !== undefined) {
+                startGetNumber = true;
+                if (ans > maxDivTen ||
+                    (!isNagtive && ans === maxDivTen && map[char] > ones) ||
+                    (isNagtive && ans === maxDivTen && map[char] > ones + 1))
+                    overFlowed = true;
+                else
+                    ans = ans * 10 + map[char];
+            }
+            else break;
+            i++;
+        }
+        if (overFlowed) return isNagtive ? max * -1 - 1 : max;
+        return isNagtive ? ans * -1 : ans;
+    };
+
+    assert(42, myAtoi('42'));
+    assert(42, myAtoi('  42'));
+    assert(-42, myAtoi(' -42'));
+    assert(2147483647, myAtoi(' 2147483648'));
+    assert(-2147483648, myAtoi(' -3147483648'));
+    assert(-2147483648, myAtoi(' -2147483649'));
+    assert(1, myAtoi(' +1'));
+    assert(12345678, myAtoi('  0000000000012345678'));
+    assert(2147483646, myAtoi('2147483646'));
+</script>

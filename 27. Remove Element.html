@@ -1,0 +1,31 @@
+<script src="assert.js"></script>
+<script>   
+
+    /**
+     * @param {number[]} nums
+     * @param {number} val
+     * @return {number}
+     */
+    var removeElement = function (nums, val) {
+        var len = nums.length;
+        for (let i = len - 1; i > -1; i--) {
+            if (nums[i] === val)
+                nums.splice(i, 1);
+        }
+        return nums.length;
+    };
+
+    const test1 = [3, 2, 2, 3];
+    assert(2, removeElement(test1, 3));
+    assert(JSON.stringify([2, 2]), JSON.stringify(test1));
+
+    const test2 = [0, 1, 2, 2, 3, 0, 4, 2];
+    assert(5, removeElement(test2, 2));
+    assert(JSON.stringify([0, 1, 3, 0, 4]), JSON.stringify(test2));
+
+
+    const test3 = [];
+    assert(0, removeElement(test3, 1));
+    assert(JSON.stringify([]), JSON.stringify(test3));
+
+</script>

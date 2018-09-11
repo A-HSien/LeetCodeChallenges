@@ -1,0 +1,30 @@
+<script src="assert.js"></script>
+<script>   
+
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var removeDuplicates = function (nums) {
+        const len = nums.length;
+        for (let i = len - 1; i > 0; i--) {
+            if (i !== 0 && nums[i] === nums[i - 1])
+                nums.splice(i, 1);
+        }
+        return nums.length;
+    };
+
+    const test1 = [1, 1, 2];
+    assert(2, removeDuplicates(test1));
+    assert(JSON.stringify([1, 2]), JSON.stringify(test1));
+
+    const test2 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+    assert(5, removeDuplicates(test2));
+    assert(JSON.stringify([0, 1, 2, 3, 4]), JSON.stringify(test2));
+
+
+    const test3 = [];
+    assert(0, removeDuplicates(test3));
+    assert(JSON.stringify([]), JSON.stringify(test3));
+
+</script>

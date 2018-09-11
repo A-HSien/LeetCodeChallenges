@@ -1,0 +1,34 @@
+<script src="assert.js"></script>
+<script>   
+
+
+    /**
+     * @param {string[]} strs
+     * @return {string}
+     */
+    var longestCommonPrefix = function (strs) {
+        const len = strs.length;
+        if (len === 0) return '';
+        let i = 0;
+        while (strs[0][i]) {
+            let end = false;
+            for (let j = 1; j < len; j++) {
+                if (strs[0][i] !== strs[j][i]) {
+                    end = true;
+                    break;
+                }
+            };
+            if (end)
+                break;
+            else
+                i++;
+        };
+        return strs[0].substring(0, i);
+    };
+
+
+    assert('', longestCommonPrefix(["dog", "racecar", "car"]));
+    assert('abc', longestCommonPrefix(["abcdog", "abcracecar", "abccar"]));
+    assert('', longestCommonPrefix(["abcdog", "abcracecar", ""]));
+
+</script>

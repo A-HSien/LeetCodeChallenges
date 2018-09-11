@@ -1,0 +1,48 @@
+<script src="assert.js"></script>
+<script>   
+
+    const openTypes = {
+        '{': 1,
+        '[': 2,
+        '(': 3
+    };
+    const closeTypes = {
+        '}': 1,
+        ']': 2,
+        ')': 3
+    };
+
+
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    var isValid = function (s) {
+        const openTypeSequence = [];
+        const len = s.length;
+        for (let i = 0; i < len; i++) {
+            const openType = openTypes[s[i]];
+            if (openType) {
+                openTypeSequence.push(openType);
+            } else {
+                const closeType = closeTypes[s[i]];
+                if (closeType) {
+                    const lastOpenType = openTypeSequence.pop();
+                    if (lastOpenType !== closeType) return false;
+                }
+            }
+
+        }
+        if (openTypeSequence.length > 0) return false;
+        return true;
+    };
+
+    assert(true, isValid("()"));
+    assert(true, isValid("()[]{}"));
+    assert(true, isValid("{[]}"));
+    assert(false, isValid("([)]"));
+    assert(false, isValid("([]"));
+    assert(false, isValid("([])}"));
+    assert(true, isValid("([]{})"));
+
+</script>

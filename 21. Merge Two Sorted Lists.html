@@ -1,0 +1,85 @@
+<script src="assert.js"></script>
+<script>   
+    /**
+     * Definition for singly-linked list.
+     */
+    function ListNode(val, next) {
+        this.val = val;
+        this.next = next;
+    };
+
+    function addTo(node, target) {
+        target.val = node.val;
+        node = node.next;
+        return node;
+    };
+
+    function exist(node) {
+        return (!!node && (node.val === 0 || !!node.val));
+    };
+
+    /**
+     * @param {ListNode} l1
+     * @param {ListNode} l2
+     * @return {ListNode}
+     */
+    var mergeTwoLists = function (l1, l2) {
+        const ans = new ListNode();
+        let tmp = ans;
+
+
+
+        while (exist(l1) || exist(l2)) {
+            if (exist(l1) && exist(l2)) {
+                if (l1.val < l2.val) {
+                    l1 = addTo(l1, tmp);
+                }
+                else {
+                    l2 = addTo(l2, tmp);
+                }
+            }
+            else if (exist(l1)) {
+                l1 = addTo(l1, tmp);
+            }
+            else {
+                l2 = addTo(l2, tmp);
+            }
+            if (exist(l1) || exist(l2)) {
+                tmp.next = new ListNode();
+                tmp = tmp.next;
+            }
+        }
+
+        return exist(ans) ? ans : null;
+    };
+
+
+    !function () {
+        const in1 = new ListNode(
+            1,
+            new ListNode(
+                2, new ListNode(
+                    4
+                )
+            )
+        );
+
+        const in2 = new ListNode(
+            1,
+            new ListNode(
+                3, new ListNode(
+                    4
+                )
+            )
+        );
+        let test1 = mergeTwoLists(in1, in2);
+        const ans1 = [];
+        while (exist(test1)) {
+            ans1.push(test1.val);
+            test1 = test1.next;
+        }
+        assert(JSON.stringify([1, 1, 2, 3, 4, 4]), JSON.stringify(ans1));
+
+    }();
+
+</script>

@@ -1,0 +1,49 @@
+<script src="assert.js"></script>
+<script>   
+    /**
+     * Definition for a binary tree node. 
+     */
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+
+    /**
+     * @param { TreeNode } p
+     * @param { TreeNode } q
+     * @return { boolean }
+     */
+    var isSameTree = function (p, q) {
+        if (p === null && q === null) return true;
+        if (p === null || q === null) return false;
+        if (p.val !== q.val) return false;
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    };
+
+
+
+
+    const testA1 = new TreeNode(1);
+    testA1.left = new TreeNode(2);
+    testA1.right = new TreeNode(3);
+
+    const testB1 = new TreeNode(1);
+    testB1.left = new TreeNode(2);
+    testB1.right = new TreeNode(3);
+
+    assert(true, isSameTree(testA1, testB1));
+
+
+    const testA2 = new TreeNode(1);
+    testA2.left = new TreeNode(2);
+    testA2.right = new TreeNode(3);
+    testA2.left.left = new TreeNode(4);
+
+    const testB2 = new TreeNode(1);
+    testB2.left = new TreeNode(2);
+    testB2.right = new TreeNode(3);
+
+    assert(false, isSameTree(testA2, testB2));
+
+
+</script>

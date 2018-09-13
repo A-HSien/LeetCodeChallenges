@@ -1,0 +1,61 @@
+<script src="assert.js"></script>
+<script>   
+    /**
+     * Definition for a binary tree node. 
+     */
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+
+    /**
+     * @param {TreeNode} root
+     * @return {number[][]}
+     */
+    var levelOrderBottom = function (root) {
+        const ans = [];
+        if (root === null) return ans;
+        addToResult(root, 0, ans);
+        return ans.reverse();
+    };
+
+
+    function addToResult(node, level, result) {
+        if (node === null) return;
+        if (node.val !== null) {
+            result[level] = result[level] || [];
+            result[level].push(node.val);
+        }
+        level++;
+        if (node.left) addToResult(node.left, level, result);
+        if (node.right) addToResult(node.right, level, result);
+    };
+
+    const test1 = new TreeNode(1);
+    test1.left = new TreeNode(2);
+    test1.right = new TreeNode(3);
+    assert([[2, 3], [1]], levelOrderBottom(test1));
+
+
+    const test2 = new TreeNode(1);
+    test2.left = new TreeNode(2);
+    test2.right = new TreeNode(3);
+    test2.left.left = new TreeNode(4);
+
+    assert([[4], [2, 3], [1]], levelOrderBottom(test2));
+
+
+    const test3 = new TreeNode(3);
+    test3.left = new TreeNode(9);
+    test3.right = new TreeNode(20);
+    test3.right.left = new TreeNode(15);
+    test3.right.right = new TreeNode(7);
+
+    assert([
+        [15, 7],
+        [9, 20],
+        [3]
+    ], levelOrderBottom(test3));
+
+
+</script>

@@ -1,0 +1,57 @@
+<script src="assert.js"></script>
+<script>   
+    /**
+     * Definition for a binary tree node. 
+     */
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+
+    /**
+     * @param {TreeNode} root
+     * @return {number[]}
+     */
+    var inorderTraversal = function (root) {
+        debugger;
+        const ans = [];
+        const stack = [root];
+        let current = root;
+        while (stack.length > 0) {
+            if (current) {
+                if (current.left) {
+                    current = current.left;
+                    stack.push(current);
+                }
+                else {
+                    ans.push(current.val);
+                    stack.pop();
+                    current = null;
+                }
+            } else {
+                const node = stack.pop();
+                if (node.right)
+                    current = node.right;
+                else {
+                    ans.push(node.val);
+                    stack.pop();
+                }
+            }
+        }
+        return ans;
+    };
+
+
+    const test1 = new TreeNode(1);
+    test1.left = new TreeNode(2);
+    test1.left.left = new TreeNode(3);
+    assert([3, 2, 1], inorderTraversal(test1));
+
+    const test2 = new TreeNode(1);
+    test2.right = new TreeNode(2);
+    test2.right.left = new TreeNode(3);
+    assert([1, 3, 2], inorderTraversal(test2));
+
+
+
+</script>

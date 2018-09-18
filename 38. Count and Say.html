@@ -1,0 +1,43 @@
+<script src="assert.js"></script>
+<script>
+
+
+    const cache = ['', '1'];
+
+    /**
+     * @param {number} n
+     * @return {string}
+     */
+    var countAndSay = function (n) {
+        let result = cache[n];
+        if (result !== null && result !== undefined) return result;
+        for (let i = cache.length; i <= n; i++) {
+            const lastWord = cache[i - 1];
+
+            let thisWord = '';
+            const wordLen = lastWord.length;
+            let tmp = currentChar = lastWord[0];
+            for (let j = 1; j < wordLen; j++) {
+                const char = lastWord[j];
+                if (char === currentChar) {
+                    tmp += char;
+                }
+                else {
+                    thisWord += `${tmp.length}${tmp[0]}`;
+                    tmp = currentChar = lastWord[j];
+                }
+            }
+            thisWord += `${tmp.length}${tmp[0]}`;
+            cache[i] = thisWord;
+        }
+
+        return cache[n];
+    };
+
+
+    assert('1', countAndSay(1));
+    assert('11', countAndSay(2));
+    assert('111221', countAndSay(5));
+    assert('1211', countAndSay(4));
+
+</script>

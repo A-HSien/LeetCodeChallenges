@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Leet Code</title>
+
+</head>
+
+<body>
+
+    <form action="https://leetcode.com/api/problems/all/" method="GET">
+        　<input type="submit" value="">
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="utilities.js"></script>
+    <script>
+        $.ajax({
+            type: "get",
+            url: 'https://leetcode.com/api/problems/all/',
+            dataType: "jsonp",
+            success: (a, b, c, d) => {
+
+            }
+        }).((a, b, c, d) => {
+
+        });
+        getQueryString()
+    </script>
+
+</body>
+
+</html>

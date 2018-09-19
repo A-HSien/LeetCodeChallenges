@@ -50,9 +50,14 @@ function assert(expected, result) {
 
 
 function safetyWhile(conditionFunc, contentFunc, timeout) {
-    timeout = timeout || 5000;
+    timeout = timeout || 0.5 * 60 * 1000;
     const begin = Date.now();
-    while ((Date.now() - begin) < timeout && conditionFunc()) {
+    const checkTime = () => {
+        const result = (Date.now() - begin) < timeout;
+        if (!result) console.warn('timeout')
+        return result;
+    };
+    while (conditionFunc() && checkTime()) {
         contentFunc();
     };
 };

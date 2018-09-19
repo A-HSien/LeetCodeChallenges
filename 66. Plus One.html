@@ -1,0 +1,29 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[]} digits
+     * @return {number[]}
+     */
+    var plusOne = function (digits) {
+        let index = digits.length - 1;
+        let done = false;
+        while (!done) {
+            digits[index] = digits[index] + 1;
+            if (digits[index] === 10) {
+                digits[index] = 0;
+                if (index === 0) {
+                    digits.unshift(1);
+                    done = true;
+                }
+                else index--;
+            }
+            else done = true;
+        }
+        return digits;
+    };
+
+    assert([1, 2, 4], plusOne([1, 2, 3]));
+    assert([1, 0, 0, 0], plusOne([9, 9, 9]));
+
+</script>

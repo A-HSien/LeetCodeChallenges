@@ -1,0 +1,28 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    var lengthOfLastWord = function (s) {
+        let i = s.length - 1;
+        let startCount = false;
+        let ans = 0;
+        while (i >= 0) {
+            if (s[i] === ' ' && startCount) {
+                break;
+            }
+            else if (s[i] !== ' ') {
+                startCount = true;
+                ans++;
+            }
+            i--;
+        }
+        return ans;
+    };
+
+
+    assert(5, lengthOfLastWord("Hello World"));
+
+</script>

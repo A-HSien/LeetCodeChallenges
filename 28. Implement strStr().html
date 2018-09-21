@@ -1,0 +1,37 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {string} haystack
+     * @param {string} needle
+     * @return {number}
+     */
+    var strStr = function (haystack, needle) {
+        if (!needle) return 0;
+        let max = haystack.length - needle.length;
+        if (max < 0) return -1;
+        else if (max === 0) {
+            if (haystack !== needle) return -1;
+            else if (haystack === needle) return 0;
+        }
+        let i = 0;
+        let ans = -1;
+        const needleFirst = needle[0];
+        const needleLen = needle.length;
+        while (ans < 0 && i <= max) {
+            if (haystack[i] === needleFirst && haystack.substr(i, needleLen) === needle)
+                ans = i;
+            else
+                i++;
+        }
+        return ans;
+    };
+
+
+    assert(0, strStr("a", ""));
+    assert(0, strStr("", ""));
+    assert(2, strStr("hello", "ll"));
+    assert(-1, strStr("aaaaa", "bba"));
+    assert(9, strStr("mississippi", "pi"));
+
+</script>

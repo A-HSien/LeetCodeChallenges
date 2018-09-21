@@ -49,8 +49,8 @@ function assert(expected, result) {
 };
 
 
-function safetyWhile(conditionFunc, contentFunc, timeout) {
-    timeout = timeout || 0.5 * 60 * 1000;
+function safetyWhile(conditionFunc, contentFunc) {
+    const timeout = safetyWhile.timeout || 1 * 1000;
     const begin = Date.now();
     const checkTime = () => {
         const result = (Date.now() - begin) < timeout;
@@ -61,6 +61,7 @@ function safetyWhile(conditionFunc, contentFunc, timeout) {
         contentFunc();
     };
 };
+safetyWhile.timeout = 1 * 1000;
 
 function getQueryString(field, url) {
     const href = url ? url : window.location.href;

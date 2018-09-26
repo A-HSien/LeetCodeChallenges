@@ -1,0 +1,45 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * Definition for a binary tree node.
+     */
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+
+    /**
+     * @param {TreeNode} root
+     * @return {number}
+     */
+    var maxDepth = function (root) {
+        if (!root) return 0;
+
+        let depth = 1;
+        let nodes = [root];
+        safetyWhile(() => (nodes.length > 0), () => {
+            const nextLevel = [];
+            nodes.forEach(n => {
+                if (n.left) nextLevel.push(n.left);
+                if (n.right) nextLevel.push(n.right);
+            });
+            if (nextLevel.length > 0)
+                depth++;
+
+            nodes = nextLevel;
+        });
+
+        return depth;
+    };
+
+
+
+    const test1 = arrayToTree(null);
+    assert(0, maxDepth(test1));
+
+    safetyWhile.timeout = 60000;
+    const test2 = arrayToTree([3, 9, 20, null, null, 15, 7]);
+    assert(3, maxDepth(test2));
+
+</script>

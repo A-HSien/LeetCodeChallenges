@@ -69,3 +69,37 @@ function getQueryString(field, url) {
     const string = reg.exec(href);
     return string ? decodeURIComponent(string[1]) : null;
 };
+
+
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+};
+
+/** 
+ * @param {Array} array
+ * */
+function arrayToTree(array) {
+    if (!array || array.length === 0) return null;
+    const root = new TreeNode(array.shift());
+
+    let nodes = [root];
+    while (array.length > 0) {
+        const nextLevel = [];
+        nodes.forEach(n => {
+            if (array.length > 0) {
+                const left = array.shift();
+                n.left = left !== null ? new TreeNode(left) : left;
+            }
+            if (array.length > 0) {
+                const right = array.shift();
+                n.right = right !== null ? new TreeNode(right) : right;
+            }
+
+            nextLevel.push(n.left);
+            nextLevel.push(n.right);
+        });
+        nodes = nextLevel;
+    };
+    return root;
+};

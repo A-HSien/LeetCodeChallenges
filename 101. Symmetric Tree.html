@@ -1,0 +1,72 @@
+<script src="utilities.js"></script>
+<script>
+    /**
+     * Definition for a binary tree node. 
+     */
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+
+    /**
+    * @param {TreeNode} root
+    * @return {boolean}
+    */
+    var isSymmetric = function (root) {
+
+        if (!root) return true;
+        if (!root.left && !root.right) return true;
+        if (!root.left || !root.right) return false;
+
+        return twoTreeIsSymmetric(root.left, root.right);
+    };
+
+    /**
+    * @param {TreeNode} a
+    * @param {TreeNode} b
+    */
+    function twoTreeIsSymmetric(a, b) {
+        if (a.val !== b.val) return false;
+        let aNodes = [a];
+        let bNodes = [b];
+        let result = true;
+
+        while (aNodes.length > 0) {
+            let i = 0;
+            const a = aNodes.shift();
+            const b = bNodes.shift();
+            if (
+                (a.val !== b.val) ||
+                (!a.left && b.right) ||
+                (a.left && !b.right) ||
+                (!a.right && b.left) ||
+                (a.right && !b.left)
+            ) {
+                result = false;
+                break;
+            } else {
+                if (a.left) {
+                    aNodes.push(a.left);
+                    bNodes.push(b.right);
+                }
+                if (a.right) {
+                    aNodes.push(a.right);
+                    bNodes.push(b.left);
+                }
+            }
+        }
+
+        return result;
+    };
+
+
+
+    const test1 = arrayToTree([1, 2, 2, 3, 4, 4, 3]);
+    assert(true, isSymmetric(test1));
+
+
+    const test2 = arrayToTree([1, 2, 2, null, 3, null, 3]);
+    assert(false, isSymmetric(test2));
+
+
+</script>

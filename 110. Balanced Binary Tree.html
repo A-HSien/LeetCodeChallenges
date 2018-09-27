@@ -1,0 +1,70 @@
+<script src="utilities.js"></script>
+<script>
+    /**
+     * Definition for a binary tree node. 
+     */
+    function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+    };
+
+    /**
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    function _isBalanced(root) {
+        if (!root || (!root.left && !root.right)) return true;
+        let isBalanced = true;
+        let min = 1;
+        let max = 1;
+        let left = root.left ? [root.left] : [];
+        let right = root.right ? [root.right] : [];
+        while (left.length > 0 || right.length > 0) {
+            if (min === max) {
+                if (left.length === 0 || right.length === 0)
+                    min = max;
+                else min++;
+            }
+            max++;
+            if (max - min > 1) {
+                isBalanced = false;
+                break;
+            }
+            const nextLeft = [];
+            const nextRight = [];
+            left.forEach(e => {
+                if (e.left) nextLeft.push(e.left);
+                if (e.right) nextLeft.push(e.right);
+            });
+            right.forEach(e => {
+                if (e.left) nextRight.push(e.left);
+                if (e.right) nextRight.push(e.right);
+            });
+            left = nextLeft;
+            right = nextRight;
+        };
+        return isBalanced && _isBalanced(root.left) && _isBalanced(root.right);
+    };
+    /**
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    var isBalanced = _isBalanced;
+
+
+    const test1 = arrayToTree([3, 9, 20, null, null, 15, 7]);
+    assert(true, isBalanced(test1));
+
+    const test2 = arrayToTree([1, 2, 2, 3, 3, null, null, 4, 4]);
+    assert(false, isBalanced(test2));
+
+    const test3 = arrayToTree([1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, null, null, 5, 5]);
+    assert(true, isBalanced(test3));
+
+    const test4 = arrayToTree([1, null, 2, null, 3]);
+    assert(false, isBalanced(test4));
+
+    const test5 = arrayToTree([1, 2, 2, 3, null, null, 3, 4, null, null, 4]);
+    assert(false, isBalanced(test5));
+
+</script>

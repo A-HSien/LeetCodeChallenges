@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", Logger.init);
 function assert(expected, result) {
     if (expected !== null && typeof expected === 'object') expected = JSON.stringify(expected);
     if (result !== null && typeof result === 'object') result = JSON.stringify(result);
-    Logger.log(JSON.stringify(expected === result) + ', result: ' + result);
+    Logger.log((expected === result) ? 'correct' : 'incorrect');
     if (expected !== result) Logger.warn(`expected: ${expected} , but your result: ${result}`);
 };
 
@@ -96,8 +96,8 @@ function arrayToTree(array) {
                 n.right = right !== null ? new TreeNode(right) : right;
             }
 
-            nextLevel.push(n.left);
-            nextLevel.push(n.right);
+            if (n.left) nextLevel.push(n.left);
+            if (n.right) nextLevel.push(n.right);
         });
         nodes = nextLevel;
     };

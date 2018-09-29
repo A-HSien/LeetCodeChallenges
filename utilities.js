@@ -103,3 +103,24 @@ function arrayToTree(array) {
     };
     return root;
 };
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+};
+
+/** 
+ * @param {Array} array
+ * */
+function arrayToLinkedList(array) {
+    if (!array || array.length === 0) return null;
+
+    const len = array.length;
+    const root = new ListNode(array[0]);
+    let node = root;
+    for (let i = 1; i < len; i++) {
+        node = node.next = new ListNode(array[i]);
+
+    }
+    return root;
+};

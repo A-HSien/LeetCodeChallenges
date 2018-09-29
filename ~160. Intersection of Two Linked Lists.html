@@ -1,0 +1,58 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * Definition for singly-linked list.
+     */
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+
+    /**
+     * @param {ListNode} headA
+     * @param {ListNode} headB
+     * @return {ListNode}
+     */
+    var getIntersectionNode = function (headA, headB) {
+        const map = {};
+
+        let nodeA = headA;
+        let nodeB = headB;
+        let ans = null;
+        while (!ans && (nodeA !== null || nodeB !== null)) {
+            if (nodeA) {
+                if (!map[nodeA.val]) {
+                    map[nodeA.val] = true;
+                }
+                else {
+                    ans = nodeA.val;
+                    break;
+                }
+                nodeA = nodeA.next;
+            }
+            if (nodeB) {
+                if (!map[nodeB.val]) {
+                    map[nodeB.val] = true;
+                }
+                else {
+                    ans = nodeB.val;
+                    break;
+                }
+                nodeB = nodeB.next;
+            }
+
+        }
+        return ans;
+    };
+
+
+    const test1a = arrayToLinkedList([1, 3, 5, 7, 9, 11]);
+    const test1b = arrayToLinkedList([4, 9, 11]);
+    assert(9, getIntersectionNode(test1a, test1b));
+
+
+    const test2a = arrayToLinkedList([1]);
+    const test2b = arrayToLinkedList([1]);
+    assert(1, getIntersectionNode(test2a, test2b));
+</script>

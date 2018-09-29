@@ -1,0 +1,26 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number} n
+     * @return {string}
+     */
+    var convertToTitle = function (n) {
+        if (!n) return '';
+        const codeStart = 'A'.charCodeAt(0) - 1;
+        let ans = '';
+        while (n !== 0) {
+            const add = n % 26 || 26;
+            ans = String.fromCharCode(codeStart + add) + ans;
+            n = Math.floor((n - add) / 26);
+        }
+        return ans;
+    };
+
+
+    assert('A', convertToTitle(1));
+    assert('AB', convertToTitle(28));
+    assert('AZ', convertToTitle(52));
+    assert('ZY', convertToTitle(701));
+
+</script>

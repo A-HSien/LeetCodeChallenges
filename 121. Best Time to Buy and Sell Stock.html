@@ -1,0 +1,24 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[]} prices
+     * @return {number}
+     */
+    var maxProfit = function (prices) {
+        const len = prices.length;
+        let ans = 0;
+        let max = prices[len - 1];
+        for (let i = len - 2; i >= 0; i--) {
+            if (prices[i] > max) max = prices[i];
+            const profit = max - prices[i];
+            if (profit > ans) ans = profit;
+        }
+        return ans;
+    };
+
+
+    assert(5, maxProfit([7, 1, 5, 3, 6, 4]));
+    assert(2, maxProfit([4, 5, 2, 1, 2, 3]));
+
+</script>

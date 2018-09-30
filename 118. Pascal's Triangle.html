@@ -1,0 +1,50 @@
+<script src="utilities.js"></script>
+<script>
+
+    const ans = [
+        [1],
+        [1, 1],
+        [1, 2, 1],
+        [1, 3, 3, 1],
+        [1, 4, 6, 4, 1]
+    ];
+
+    /**
+     * @param {number} numRows
+     * @return {number[][]}
+     */
+    var generate = function (numRows) {
+        if (ans.length < numRows) {
+            for (let i = ans.length; i < numRows; i++) {
+                const toAdd = [];
+                const last = ans[ans.length - 1];
+                const lastLen = last.length;
+                for (let j = 1; j < lastLen; j++) {
+                    toAdd.push(last[j - 1] + last[j]);
+                };
+                ans.push([1, ...toAdd, 1]);
+            };
+        }
+        return ans.slice(0, numRows);
+    };
+
+
+    assert([
+        [1],
+        [1, 1],
+        [1, 2, 1],
+        [1, 3, 3, 1],
+        [1, 4, 6, 4, 1]
+    ], generate(5));
+
+    assert([
+        [1],
+        [1, 1],
+        [1, 2, 1],
+        [1, 3, 3, 1],
+        [1, 4, 6, 4, 1],
+        [1, 5, 10, 10, 5, 1]
+    ], generate(6));
+
+
+</script>

@@ -16,30 +16,29 @@
      */
     var getIntersectionNode = function (headA, headB) {
         const map = {};
-
         let nodeA = headA;
         let nodeB = headB;
         let ans = null;
-        while (!ans && (nodeA !== null || nodeB !== null)) {
+        while (!ans && (!!nodeA || !!nodeB)) {
             if (nodeA) {
                 if (!map[nodeA.val]) {
                     map[nodeA.val] = true;
+                    nodeA = nodeA.next;
                 }
                 else {
                     ans = nodeA.val;
                     break;
                 }
-                nodeA = nodeA.next;
             }
             if (nodeB) {
                 if (!map[nodeB.val]) {
                     map[nodeB.val] = true;
+                    nodeB = nodeB.next;
                 }
                 else {
                     ans = nodeB.val;
                     break;
                 }
-                nodeB = nodeB.next;
             }
 
         }
@@ -52,7 +51,6 @@
     assert(9, getIntersectionNode(test1a, test1b));
 
 
-    const test2a = arrayToLinkedList([1]);
-    const test2b = arrayToLinkedList([1]);
-    assert(1, getIntersectionNode(test2a, test2b));
+
+    assert(1, getIntersectionNode(new ListNode(1), new ListNode(1)));
 </script>

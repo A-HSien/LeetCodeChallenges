@@ -1,0 +1,22 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number} n
+     * @return {number}
+     */
+    var trailingZeroes = function (n) {
+        let count = 0;
+        while (n >= 5) {
+            n = Math.floor(n / 5);
+            count += n;
+        }
+        return count;
+    };
+
+
+    assert(0, trailingZeroes(3));
+    assert(1, trailingZeroes(5));
+    assert(7, trailingZeroes(30));
+
+</script>

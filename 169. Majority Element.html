@@ -1,0 +1,26 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var majorityElement = function (nums) {
+        const len = nums.length;
+        const map = {};
+        for (let i = 0; i < len; i++) {
+            const num = nums[i];
+            if (map[num]) {
+                map[num]++;
+            }
+            else map[num] = 1;
+            if (map[num] > (len / 2))
+                return num;
+        }
+    };
+
+
+    assert(3, majorityElement([3, 2, 3]));
+    assert(2, majorityElement([2, 2, 1, 1, 1, 2, 2]));
+
+</script>

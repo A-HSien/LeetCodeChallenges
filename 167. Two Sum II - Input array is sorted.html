@@ -1,0 +1,25 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[]} numbers
+     * @param {number} target
+     * @return {number[]}
+     */
+    var twoSum = function (numbers, target) {
+        const map = {};
+        const len = numbers.length;
+        for (let i = 0; i < len; i++) {
+            const number = numbers[i];
+            if (map[number] !== undefined)
+                return [map[number] + 1, i + 1];
+            else
+                map[target - number] = i;
+        }
+        return [];
+    };
+
+
+    assert([1, 2], twoSum([2, 7, 11, 15], 9));
+
+</script>

@@ -1,0 +1,102 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * initialize your data structure here.
+     */
+    var MinStack = function () {
+        this.list = [];
+        this.min = null;
+    };
+
+    /** 
+     * @param {number} x
+     * @return {void}
+     */
+    MinStack.prototype.push = function (x) {
+        this.list.push(x);
+        if (this.min === null || this.min > x) this.min = x;
+        return null;
+    };
+
+    /**
+     * @return {void}
+     */
+    MinStack.prototype.pop = function () {
+        const poped = this.list.pop();
+        if (this.min === poped) {
+            this.min = null;
+            this.min = this.getMin();
+        }
+        return null;
+    };
+
+    /**
+     * @return {number}
+     */
+    MinStack.prototype.top = function () {
+        const len = this.list.length;
+        if (len === 0) return null;
+        return this.list[len - 1];
+    };
+
+    /**
+     * @return {number}
+     */
+    MinStack.prototype.getMin = function () {
+        if (this.min !== null) return this.min;
+        const len = this.list.length;
+        for (let i = 0; i < len; i++) {
+            if (this.min === null || this.min > this.list[i])
+                this.min = this.list[i];
+        }
+        return this.min;
+    };
+
+
+
+    const test1 = new MinStack();
+    test1.push(-2);
+    test1.push(0);
+    test1.push(-3);
+    assert(-3, test1.getMin());
+    test1.pop();
+    assert(0, test1.top());
+    assert(-2, test1.getMin());
+
+
+
+    const test2 = new MinStack();
+    test2.push(0);
+    test2.push(1);
+    test2.push(0);
+    assert(0, test2.getMin());
+    assert(null, test2.pop());
+    assert(0, test2.getMin());
+
+
+    runTests(
+        ["MinStack", "push", "push", "push", "top", "pop", "getMin", "pop", "getMin", "pop", "push", "top", "getMin", "push", "top", "getMin", "pop", "getMin"],
+        [[], [2147483646], [2147483646], [2147483647], [], [], [], [], [], [], [2147483647], [], [], [-2147483648], [], [], [], []],
+        [null, null, null, null, 2147483647, null, 2147483646, null, 2147483646, null, null, 2147483647, 2147483647, null, -2147483648, -2147483648, null, 2147483647],
+    );
+
+
+    runTests(
+        ["MinStack", "push", "push", "getMin", "getMin", "push", "getMin", "getMin", "top", "getMin", "pop", "push", "push", "getMin", "push", "pop", "top", "getMin", "pop"],
+        [[], [-10], [14], [], [], [-20], [], [], [], [], [], [10], [-7], [], [-7], [], [], [], []],
+        [null, null, null, -10, -10, null, -20, -20, -20, -20, null, null, null, -10, null, null, -7, -10, null]
+    );
+
+
+
+    function runTests(methods, args, expects) {
+        const minStack = new MinStack();
+        methods.forEach((method, i) => {
+            if (i === 0) return;
+            const result = minStack[method].apply(minStack, args[i]);
+            assert(expects[i], result, `no.${i}, method: ${method}, input: ${args[i]}`);
+        });
+    };
+
+</script>

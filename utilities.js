@@ -45,7 +45,11 @@ function assert(expected, result, debugMessage) {
     if (expected !== null && typeof expected === 'object') expected = JSON.stringify(expected);
     if (result !== null && typeof result === 'object') result = JSON.stringify(result);
     Logger.log((expected === result) ? 'correct' : 'incorrect');
-    if (expected !== result) Logger.warn(`expected: ${expected} , but your result: ${result}. ${debugMessage}`);
+    if (expected !== result) {
+        let warn = `expected: ${expected} , but your result: ${result}.`;
+        if (debugMessage) warn += ` ${debugMessage}`;
+        Logger.warn(warn);
+    }
 };
 
 

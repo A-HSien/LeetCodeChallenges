@@ -1,0 +1,45 @@
+<script src="utilities.js"></script>
+<script>
+
+    const map = {
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z'],
+    }
+
+    /**
+     * @param {string} digits
+     * @return {string[]}
+     */
+    var letterCombinations = function (digits) {
+        digits = digits.toString(10).split('');
+        let ans = [];
+
+        const len = digits.length;
+        for (let i = 0; i < len; i++) {
+            const newAns = [];
+            const chars = map[digits[i]] || [];
+            if (ans.length > 0) {
+                ans.forEach(ans => {
+                    chars.forEach(char => {
+                        newAns.push(ans + char);
+                    });
+                });
+                ans = newAns;
+            }
+            else {
+                ans = chars;
+            }
+        };
+        return ans;
+    };
+
+
+    assert(["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"], letterCombinations(23));
+    assert(["p", "q", "r", "s"], letterCombinations(7));
+</script>

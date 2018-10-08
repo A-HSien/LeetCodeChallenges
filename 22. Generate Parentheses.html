@@ -1,0 +1,49 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number} n
+     * @return {string[]}
+     */
+    var generateParenthesis = function (n) {
+        if (n === 0) return [];
+        let count = 1;
+        const pair = '()';
+        let ans = [pair];
+        while (count !== n) {
+            const newAns = [];
+            const newAnsMap = {};
+            ans.forEach(string => {
+                const len = string.length;
+                for (let i = 0; i < len; i++) {
+                    if (string[i] === '(') {
+                        const toAdd = string.slice(0, i + 1) + pair + string.slice(i + 1);
+                        if (!newAnsMap[toAdd]) {
+                            newAnsMap[toAdd] = true;
+                            newAns.push(toAdd);
+                        }
+                    }
+                };
+                const toAdd = string + pair;
+                if (!newAnsMap[toAdd]) {
+                    newAnsMap[toAdd] = true;
+                    newAns.push(toAdd);
+                }
+            });
+            ans = newAns;
+            count++;
+        }
+        return ans;
+    };
+
+
+
+    assert([
+        "(()())",
+        "((()))",
+        "(())()",
+        "()(())",
+        "()()()"
+    ], generateParenthesis(3));
+
+</script>

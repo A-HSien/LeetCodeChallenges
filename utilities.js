@@ -128,3 +128,15 @@ function arrayToLinkedList(array) {
     }
     return root;
 };
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+function getLastNode(head) {
+    let node = head;
+    while (node.next) {
+        node = node.next;
+    };
+    return node;
+};

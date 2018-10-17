@@ -1,0 +1,44 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+/**
+ * Definition for singly-linked list.
+ */
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+
+    /**
+     * @param {ListNode} head
+     * @return {boolean}
+     */
+    var hasCycle = function (head) {
+        let hasCycle = false;
+        if (!head) return hasCycle;
+        let node = head;
+        while (node.next) {
+            node.checked = true;
+            if (node.next.checked) {
+                hasCycle = true;
+                break;
+            }
+            node = node.next;
+        };
+        return hasCycle;
+    };
+
+
+
+    const test1 = arrayToLinkedList([1, 2, 3, 4, 5, 6, 7]);
+    assert(false, hasCycle(test1));
+
+
+    const test2a = arrayToLinkedList([1, 2, 3]);
+    const test2b = arrayToLinkedList([4, 5, 6]);
+    getLastNode(test2a).next = test2b;
+    getLastNode(test2b).next = test2a;
+    assert(true, hasCycle(test2a));
+    
+</script>

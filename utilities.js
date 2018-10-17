@@ -1,3 +1,7 @@
+function getTitle() {
+    return $('.title-wrapper__sEe4').text;
+};
+
 
 const Logger = {
     $logger: null,

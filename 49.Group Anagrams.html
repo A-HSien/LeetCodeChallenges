@@ -1,0 +1,34 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {string[]} strs
+     * @return {string[][]}
+     */
+    var groupAnagrams = function (strs) {
+        const groups = new Map();
+        strs.forEach(str => {
+            const key = str.split('').sort().join(',');
+            if (groups.has(key)) {
+                const group = groups.get(key);
+                group.push(str);
+                groups.set(key, group);
+            }
+            else {
+                groups.set(key, [str]);
+            }
+        });
+        const ans = [];
+        for (let val of groups.values()) {
+            ans.push(val);
+        };
+        return ans;
+    };
+
+
+    assert(
+        [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]],
+        groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+    );
+
+</script>

@@ -1,0 +1,41 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * Definition for singly-linked list.
+     */
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+
+
+    /**
+     * @param {ListNode} head
+     * @return {ListNode}
+     */
+    var swapPairs = function (head) {
+        if (!head || !head.next) return head;
+        let ans = head.next;
+        let node = head;
+        let pre = null;
+        while (node && node.next) {
+            const next = node.next;
+            if (pre) pre.next = next;
+            const nextOfNext = node.next.next;
+            node.next = nextOfNext;
+            pre = next.next = node;
+            node = nextOfNext;
+        }
+        return ans;
+    };
+
+
+    const test1a = arrayToLinkedList([1, 2, 3, 4]);
+    const test1b = arrayToLinkedList([2, 1, 4, 3]);
+    assert(test1b, swapPairs(test1a));
+
+    const test2a = arrayToLinkedList([1, 2, 3, 4, 5]);
+    const test2b = arrayToLinkedList([2, 1, 4, 3, 5]);
+    assert(test2b, swapPairs(test2a));
+</script>

@@ -1,0 +1,71 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number} n
+     * @param {number} k
+     * @return {string}
+     */
+    var getPermutation = function (n, k) {
+        let path = function () {
+            let first = '';
+            for (let i = 1; i <= n; i++) {
+                first += String(i);
+            }
+            return first;
+        }();
+        const permutations = [path];
+
+        let currentIndex = n - 1;
+        while (currentIndex >= 0 && permutations.length < k) {
+            const currentChar = path[currentIndex];
+            const currentNum = Number(currentChar);
+            if (currentNum < n) {
+                path = path.substr(0, currentIndex);
+                const len = path.length;
+                const map = {};
+                for (let i = 0; i < len; i++) {
+                    map[path[i]] = true;
+                }
+                const toAdd = String(getValidMin(map, currentNum + 1));
+                if (toAdd <= n) {
+                    path += toAdd;
+
+                    map[toAdd] = true;
+                    const lack = n - len - 1;
+                    for (let i = 0; i < lack; i++) {
+                        const min = getValidMin(map, 1)
+                        path += min;
+                        map[min] = true;
+                        currentIndex++;
+                    }
+                    permutations.push(path);
+                }
+                else currentIndex--;
+            }
+            else currentIndex--;
+        }
+        return permutations[k - 1];
+    };
+
+    function stringToMap(string) {
+        const len = string.length;
+        const map = {};
+        for (let i = 0; i < len; i++) {
+            map[string[i]] = true;
+        }
+        return map;
+    };
+
+    function getValidMin(map, min) {
+        while (map[min]) min++;
+        return min;
+    };
+
+
+    assert('213', getPermutation(3, 3));
+    assert('2314', getPermutation(4, 9));
+
+    assert('84213756', getPermutation(8, 37565));
+
+</script>

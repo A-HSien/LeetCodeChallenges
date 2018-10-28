@@ -1,0 +1,64 @@
+<script src="utilities.js"></script>
+<script>
+
+
+    /**
+     * @param {string} num1
+     * @param {string} num2
+     * @return {string}
+     * 一位一位的前進相乘, 把結果累記在一個字串裡, 累記時也是一位一位運算....
+     */
+    var multiply = function (num1, num2) {
+        if (num1 === '0' || num2 === '0') return '0';
+        const num1Len = num1.length;
+        const num2Len = num2.length;
+        let result = '0';
+
+        for (let i1 = num1Len - 1; i1 > -1; i1--) {
+            for (let i2 = num2Len - 1; i2 > -1; i2--) {
+                const m = Number(num1[i1]) * Number(num2[i2]);
+                result = addToResult(result, m, (num1Len - i1 - 1) + (num2Len - i2 - 1));
+            }
+        }
+
+        return result;
+    };
+
+    /**
+     * @param {number} num
+     * @param {string} result
+     * @param {number} atDigit
+     * @return {string}
+     */
+    function addToResult(result, toAdd, atDigit) {
+        while (result.length < atDigit) result = '0' + result;
+        let carry = 0;
+        while (toAdd > 0 || carry > 0) {
+            const index = result.length - 1 - atDigit;
+            let currentToAdd = toAdd % 10;
+            currentToAdd =
+                currentToAdd + carry +
+                (Number(result[index]) || 0);
+
+            const currentDigit = currentToAdd % 10;
+            result = result.substr(0, index) + currentDigit + result.substr(index + 1);
+
+            carry = Math.floor(currentToAdd / 10);
+            toAdd = Math.floor(toAdd / 10);
+            atDigit++;
+        };
+        return result;
+    };
+
+
+    assert('153', addToResult('123', 3, 1));
+    assert('203', addToResult('123', 8, 1));
+    assert('18', addToResult('0', 18, 0));
+    assert('195', addToResult('15', 18, 1));
+    assert('18015', addToResult('15', 18, 3));
+
+    assert('6', multiply('2', '3'));
+    assert('56088', multiply('123', '456'));
+    assert('0', multiply('9133', '0'));
+
+</script>

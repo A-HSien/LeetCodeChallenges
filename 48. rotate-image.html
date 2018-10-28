@@ -1,0 +1,98 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[][]} matrix
+     * @return {void} Do not return anything, modify matrix in-place instead.
+     *  1  2  3  4     13 14 15 16     13  9  5  1
+     *  5  6  7  8      9 10 11 12     14 10  6  2
+     *  9 10 11 12  =>  5  6  7  8  => 15 11  7  3
+     * 13 14 15 16      1  2  3  4     16 12  8  4
+     */
+    var rotate = function (matrix) {
+        reverse(matrix);
+        const len = matrix.length;
+        for (let i = 0; i < len; i++) {
+
+            for (let j = i + 1; j < len; j++) {
+                const tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+    };
+
+    function reverse(array) {
+        const len = Math.floor(array.length / 2);
+        for (let i = 0; i < len; i++) {
+            const tmp = array[i];
+            const toExchange = array.length - 1 - i;
+            array[i] = array[toExchange];
+            array[toExchange] = tmp;
+        }
+    };
+
+    const reverseTest1 = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ];
+    reverse(reverseTest1);
+    assert(reverseTest1.reverse(), reverseTest1);
+
+
+
+    const test1 = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ];
+    rotate(test1);
+    assert(
+        [
+            [7, 4, 1],
+            [8, 5, 2],
+            [9, 6, 3]
+        ],
+        test1
+    );
+
+
+    const test2 = [
+        [1, 2, 3, 4, 5],
+        [6, 7, 8, 9, 10],
+        [11, 12, 13, 14, 15],
+        [16, 17, 18, 19, 20],
+        [21, 22, 23, 24, 25]
+    ];
+    rotate(test2);
+    assert(
+        [
+            [21, 16, 11, 6, 1],
+            [22, 17, 12, 7, 2],
+            [23, 18, 13, 8, 3],
+            [24, 19, 14, 9, 4],
+            [25, 20, 15, 10, 5]
+        ],
+        test2
+    );
+
+
+    const test3 = [
+        [1, 2, 3, 4],
+        [5, 6, 7, 8,],
+        [9, 10, 11, 12],
+        [13, 14, 15, 16],
+    ];
+    rotate(test3);
+    assert(
+        [
+            [13, 9, 5, 1],
+            [14, 10, 6, 2],
+            [15, 11, 7, 3],
+            [16, 12, 8, 4]
+        ],
+        test3
+    );
+
+</script>

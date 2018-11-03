@@ -1,0 +1,39 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number}
+     */
+    var threeSumClosest = function (nums, target) {
+        nums = nums.sort((a, b) => a - b);
+        let result = nums[0] + nums[1] + nums[2];
+        const max = nums.length - 1;
+        for (let i = 0; i <= max - 2; i++) {
+            let low = i + 1;
+            let high = max;
+            while (low < high) {
+                const sum = nums[i] + nums[low] + nums[high];
+                if (sum === target) {
+                    result = sum;
+                    break;
+                } else if (sum > target) high--;
+                else low++;
+
+                if (Math.abs(sum - target) < Math.abs(result - target))
+                    result = sum;
+            }
+        }
+        return result;
+    };
+
+
+    assert(2, threeSumClosest([-1, 2, 1, -4], 1));
+
+    assert(82, threeSumClosest(
+        [1, 2, 4, 8, 16, 32, 64, 128], // 2,16,64
+        82)
+    );
+
+</script>

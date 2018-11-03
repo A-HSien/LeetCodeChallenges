@@ -1,0 +1,45 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * Definition for singly-linked list.
+     */
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+
+    /**
+   * @param {ListNode} head
+   * @param {number} n
+   * @return {ListNode}
+   */
+    var removeNthFromEnd = function (head, n) {
+        const array = [];
+        let current = head;
+        while (current) {
+            array.push(current);
+            current = current.next;
+        }
+        const len = array.length;
+        if (n === len) return array[1] || null;
+        if (n === 1)
+            array[len - 2].next = null;
+        else {
+            const index = len - n - 1;
+            array[index].next = array[index + 2];
+        }
+
+        return head;
+    };
+
+
+    const test1 = arrayToLinkedList([1, 2, 3, 4, 5]);
+    assert(arrayToLinkedList([1, 2, 3, 5]), removeNthFromEnd(test1, 2));
+
+    const test2 = arrayToLinkedList([1]);
+    assert(arrayToLinkedList([]), removeNthFromEnd(test2, 1));
+
+
+
+</script>

@@ -1,0 +1,50 @@
+<script src="utilities.js"></script>
+<script>
+
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number[]}
+     */
+    var searchRange = function (nums, target) {
+        const max = nums.length - 1;
+        if (max === 0) {
+            if (nums[0] === target) return [0, 0];
+            else return [-1, -1];
+        }
+
+        let high = max;
+        let low = 0;
+        const result = [-1, -1];
+        if (nums[0] === target) {
+            result[0]=0;
+            if()
+        }
+
+        while (low < high) {
+            if ((high - low) === 1) break;
+            const mid = Math.floor((low + high) / 2);
+            if (nums[mid] < target) low = mid;
+            else if (nums[mid] > target) high = mid;
+            else {
+                low = high = mid;
+                while (low > 0 && nums[low - 1] === target) low--;
+                while (high < max && nums[high + 1] === target) high++;
+                result[0] = low;
+                result[1] = high;
+                break;
+            }
+        };
+        return result;
+    };
+
+
+    assert([3, 4], searchRange([5, 7, 7, 8, 8, 10], 8));
+    assert([-1, -1], searchRange([5, 7, 7, 8, 8, 10], 6));
+
+    assert([0, 0], searchRange([1], 1));
+    assert([0, 0], searchRange([1, 2], 1));
+    assert([0, 1], searchRange([1, 1], 1));
+    assert([1, 1], searchRange([0, 1], 1));
+    assert([1, 1], searchRange([0, 1, 2], 1));
+</script>
